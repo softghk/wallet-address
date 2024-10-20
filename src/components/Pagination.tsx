@@ -1,10 +1,78 @@
 import React from "react";
-import { PaginationType } from "@/@types";
+import { usePagination, DOTS } from "@/hooks";
 
 interface PaginationProps {
-  pagination: PaginationType;
-  setPagination: React.Dispatch<React.SetStateAction<PaginationType>>;
+  onPageChange: (page: number) => void;
+  totalCount: number;
+  siblingCount?: number;
+  currentPage: number;
+  pageSize: number;
+  className?: string;
 }
-export const Pagination = ({ setPagination, pagination }: PaginationProps) => {
-  return <div>Pagination</div>;
+export const Pagination = (props: PaginationProps) => {
+  const {
+    onPageChange,
+    totalCount,
+    siblingCount = 1,
+    currentPage,
+    pageSize,
+    className,
+  } = props;
+
+  const paginationRange = usePagination({
+    currentPage,
+    totalCount,
+    siblingCount,
+    pageSize,
+  });
+
+  if (currentPage === 0 || paginationRange.length < 2) {
+    return null;
+  }
+
+  const onNext = () => {
+    onPageChange(currentPage + 1);
+  };
+
+  const onPrevious = () => {
+    onPageChange(currentPage - 1);
+  };
+
+  let lastPage = paginationRange[paginationRange.length - 1];
+  return (
+    <ul className={`pagination-container ${className || ""}`}>
+      <li
+        className={`pagination-item ${currentPage === 1 ? "disabled" : ""}`}
+        onClick={onPrevious}
+      >
+        <div className="arrow left" />
+      </li>
+      {paginationRange.map((pageNumber) => {
+        if (pageNumber === DOTS) {
+          return <li className="pagination-item dots">&#8230;</li>;
+        }
+
+        return (
+          <li
+            className={`pagination-item ${
+              pageNumber === currentPage ? "selected" : ""
+            }`}
+            onClick={() =>
+              typeof pageNumber === "number" && onPageChange(pageNumber)
+            }
+          >
+            {pageNumber}
+          </li>
+        );
+      })}
+      <li
+        className={`pagination-item ${
+          currentPage === lastPage ? "disabled" : ""
+        }`}
+        onClick={onNext}
+      >
+        <div className="arrow right" />
+      </li>
+    </ul>
+  );
 };

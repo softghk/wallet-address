@@ -16,7 +16,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 a {
   font-weight: 500;
   color: #646cff;
@@ -26,11 +25,14 @@ a:hover {
   color: #535bf2;
 }
 
-body {
+body,
+#root {
   margin: 0;
   display: flex;
   place-items: center;
+  align-items: stretch;
   min-width: 320px;
+  width: 100%;
   min-height: 100vh;
 }
 
@@ -68,5 +70,94 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+.table-list {
+  @apply w-full max-w-[1200px] table-auto overflow-hidden rounded-xl;
+  th {
+    @apply bg-[#3c3d3e] px-2 py-2.5 text-center text-sm first:rounded-bl-lg last:rounded-br-lg lg:px-5 lg:py-3.5 lg:text-base;
+  }
+  td {
+    @apply px-2 py-2.5 text-center text-xs lg:px-5 lg:py-6 lg:text-sm bg-stone-600 !bg-opacity-25;
+  }
+  tr:nth-child(odd) td {
+    @apply bg-stone-900;
+  }
+}
+
+.pagination-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-container {
+  display: flex;
+  list-style-type: none;
+
+  .pagination-item {
+    padding: 0 12px;
+    height: 32px;
+    text-align: center;
+    margin: auto 4px;
+    color: rgba(255, 255, 255, 0.87);
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    letter-spacing: 0.01071em;
+    border-radius: 16px;
+    line-height: 1.43;
+    font-size: 16px;
+    min-width: 32px;
+
+    &.dots:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .arrow {
+      &::before {
+        position: relative;
+        /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
+        content: "";
+        /* By using an em scale, the arrows will size with the font */
+        display: inline-block;
+        width: 0.6em;
+        height: 0.6em;
+        border-right: 0.14em solid rgba(255, 255, 255, 0.87);
+        border-top: 0.14em solid rgba(255, 255, 255, 0.87);
+      }
+
+      &.left {
+        transform: rotate(-135deg) translate(-50%);
+      }
+
+      &.right {
+        transform: rotate(45deg);
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+
+      .arrow::before {
+        border-right: 0.14em solid rgba(255, 255, 255, 0.43);
+        border-top: 0.14em solid rgba(255, 255, 255, 0.43);
+      }
+
+      &:hover {
+        background-color: transparent;
+        cursor: default;
+      }
+    }
   }
 }

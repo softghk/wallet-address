@@ -14,7 +14,7 @@ export interface Sort {
 }
 
 export interface PaginationWithSort extends PaginationType {
-  sort: Sort
+  sort: Sort;
 }
 
 export interface GetWalletParams extends PaginationWithSort {
@@ -84,4 +84,9 @@ export interface WalletType {
   };
   firstTopTokenHolder: HotTokenHolder;
   rank: number;
+}
+
+export interface ColumnType {
+  key: string;
+  title?: string;
 }
