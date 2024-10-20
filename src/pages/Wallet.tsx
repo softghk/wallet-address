@@ -29,5 +29,6 @@ export const Wallet = () => {
         Loading ...
       </div>
     );
-  return <div>{data ? <Chart data={data} /> : null}</div>;
+  //   return <div>{data ? <Chart data={data} /> : null}</div>;
+  return <div>Chart</div>;
 };

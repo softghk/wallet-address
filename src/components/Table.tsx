@@ -11,7 +11,7 @@ interface TableProps {
 }
 
 export const Table = ({ sort, columns, data, setSort }: TableProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSort = (column: string) => {
     setSort({
       key: column,
@@ -22,7 +22,8 @@ export const Table = ({ sort, columns, data, setSort }: TableProps) => {
     });
   };
   const handleClickRow = (item: any) => {
-    navigate(`/${item?.walletAddress}`);
+    // TODO Fix the chart page
+    // navigate(`/${item?.walletAddress}`);
   };
   return (
     <table className="table-list">
